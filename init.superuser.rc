@@ -1,6 +1,6 @@
 # su daemon
 service su_daemon /system/xbin/su --daemon
-    seclabel u:r:sudaemon:s0
+    seclabel u:r:su:s0
 
 on property:persist.sys.root_access=0
     stop su_daemon

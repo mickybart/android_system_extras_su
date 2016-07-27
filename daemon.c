@@ -41,6 +41,7 @@
 #include <signal.h>
 #include <string.h>
 #include <log/log.h>
+#include <selinux/android.h>
 
 #include <cutils/multiuser.h>
 
@@ -467,6 +468,11 @@ int run_daemon() {
     chmod(sun.sun_path, 0666);
 
     umask(previous_umask);
+
+    /*
+     * selinux
+     */
+    selinux_android_restorecon(DAEMON_SOCKET_PATH, SELINUX_ANDROID_RESTORECON_RECURSE);
 
     if (listen(fd, 10) < 0) {
         PLOGE("daemon listen");
