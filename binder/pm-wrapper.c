@@ -23,6 +23,11 @@ const char* resolve_package_name(int uid) {
         goto notfound;
     }
 
+    /* remove uid part of the user */
+    if (uid > 99999) {
+        uid %= 100000;
+    }
+
     char *p = packages;
     while (*p) {
         char *line_end = strstr(p, "\n");
